@@ -47,6 +47,7 @@
                                         </td>
                                         <td class="text-center">
                                             <form action="{{ route('foods.destroy', $item->id) }}" method="post">
+                                                <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#modal_detail_{{ $item->id }}" type="button">Detail</button>
                                                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal_edit_{{ $item->id }}" type="button">Edit</button>
                                                 @csrf
                                                 @method('delete')
@@ -128,6 +129,51 @@
     </div>
 
     @foreach ($list_data as $value)
+    <div class="modal fade" id="modal_detail_{{ $value->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail makanan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h1 class="text-center text-uppercase fw-bolder">{{ $value->nama_makanan }}</h1>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th>Nama makanan</th>
+                                    <td>{{ $value->nama_makanan }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Jenis makanan</th>
+                                    <td>{{ $value->jenis_makanan }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Harga</th>
+                                    <td>{{ $value->harga }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>
+                                        @if ($item->is_tersedia == 1)
+                                            <span class="badge bg-success">Tersedia</span>
+                                        @else
+                                            <span class="badge bg-warning">Tidak tersedia</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Deskripsi</th>
+                                    <td>{{ $value->deskripsi }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="modal_edit_{{ $value->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
